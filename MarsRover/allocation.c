@@ -118,4 +118,71 @@ DWORD w_free(LPVOID pMem)
    return dwRetVal;
 }
 
+DWORD w_memcpy(PBYTE lpSrc, DWORD dwSrcSz, PBYTE lpDest, DWORD dwDestSz)
+/* copies source into destination
+ * PRE:   lpSrc is a valid pointer of size dwSrcSz
+ *        lpDest is a valid pointer of size dwDestSz
+ * POST:  FCTVAL == ERROR_SUCCESS on success or an error code otherwise
+ *        lpSrc's first dwDestSz bytes are the same as lpDest on success
+ */
+{
+   DWORD dwRetVal = ERROR_SUCCESS;     // FCTVAL
+   DWORD dwItr    = 0;                 // iterator variable
+
+   if (dwDestSz < dwSrcSz)
+   {
+      dwRetVal = ERROR_NOT_ENOUGH_MEMORY;
+
+      if (VERBOSE >= 1)
+      {
+         fprintf(stderr, "w_memcpy: not enough memory allocated for destination( %d < %d). Line: %d\n",
+            dwDestSz, dwSrcSz, __LINE__);
+      }
+
+      return dwRetVal;
+   }
+
+   if ((lpSrc == NULL) || (lpDest == NULL))
+   {
+      dwRetVal = ERROR_INVALID_PARAMETER;
+
+      if (VERBOSE >= 1)
+      {
+         fprintf(stderr, "w-Memcyp: Error %d one of the pointers is NULL. Line: %d\n", dwRetVal, __LINE__);
+      }
+
+      return dwRetVal;
+   }
+
+   if (VERBOSE > 1)
+   {
+      fprintf(stdout, "w_memcpy: about to copy %d bytes from %p into %p.\nw_memcpy: Line: %d\n",
+         dwDestSz, lpSrc, lpDest, __LINE__);
+   }
+
+   memcpy(lpDest, lpSrc, dwDestSz);
+
+   if (VERBOSE > 1)
+   {
+      fprintf(stdout, "w_memcpy: copied %d bytes from %p into %p.\nw_memcpy: Verifying copy\nLine: %d\n",
+         dwDestSz, lpSrc, lpDest, __LINE__);
+   }
+
+   for (dwItr = 0; dwItr < dwDestSz; dwItr++)
+   {
+      if (lpSrc[dwItr] != lpDest[dwItr])
+      {
+         dwRetVal = ERROR_AUDIT_FAILED;
+
+         if (VERBOSE >= 1)
+         {
+            fprintf(stderr, "w_memcpy: Destination does not match source. Line: %d\n", __LINE__);
+         }
+
+         return dwRetVal;
+      }
+   }
+
+   return dwRetVal;
+}
 

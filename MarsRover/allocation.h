@@ -40,5 +40,13 @@ DWORD w_free(LPVOID pMem);
  *       if the memory is freed NUM_ALLOCATIONS is decremented
  */
 
+DWORD w_memcpy(PBYTE lpSrc, DWORD dwSrcSz, PBYTE lpDest, DWORD dwDestSz);
+/* copies source into destination
+ * PRE:   lpSrc is a valid pointer of size dwSrcSz
+ *        lpDest is a valid pointer of size dwDestSz
+ * POST:  FCTVAL == ERROR_SUCCESS on success or an error code otherwise
+ *        lpSrc's first dwDestSz bytes are the same as lpDest on success
+ */
+
 #endif
 
