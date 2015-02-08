@@ -33,7 +33,7 @@ LPVOID w_malloc(DWORD dwSize);
  *        NUM_ALLOCATIONS is incremented on success
  */
 
-int w_free(LPVOID pMem);
+DWORD w_free(LPVOID pMem);
 /* frees the memory and sets it to NULL 
  * PRE:  pMem is a valid pointer
  * POST: FCTVAL == ERROR_SUCCESS on success or an errror code otherwise

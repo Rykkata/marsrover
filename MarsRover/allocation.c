@@ -80,11 +80,42 @@ LPVOID w_malloc(DWORD dwSize)
    }
 }
 
-int w_free(LPVOID pMem);
-/* frees the memory and sets it to NULL 
+DWORD w_free(LPVOID pMem)
+/* frees the memory and sets it to NULL
  * PRE:  pMem is a valid pointer
  * POST: FCTVAL == ERROR_SUCCESS on success or an errror code otherwise
  *       if the memory is freed NUM_ALLOCATIONS is decremented
  */
+{
+   DWORD dwRetVal = ERROR_SUCCESS;     // FCTVAL
+   
+   if (pMem == NULL)
+   {
+      dwRetVal = ERROR_INVALID_PARAMETER;
+
+      if (VERBOSE > +1)
+      {
+         fprintf(stderr, "w_free: Error %d, pMem already freed. Line: %d\n", dwRetVal, __LINE__);
+      }
+
+      return dwRetVal;
+   }
+
+   if (VERBOSE > 1)
+   {
+      fprintf(stdout, "w_free: About to free memory location %p. Line: %d\n", pMem, __LINE__);
+   }
+
+   free(pMem);
+   NUM_ALLOCATIONS--;
+
+   if (VERBOSE > 1)
+   {
+      fprintf(stdout, "w_free: Freed pMem.\nw_free: Total allocations: %d\nw_free: Line: %d\n",
+         NUM_ALLOCATIONS, __LINE__);
+   }
+
+   return dwRetVal;
+}
 
 
