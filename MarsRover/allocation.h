@@ -18,8 +18,8 @@ void setVerbose(DWORD verbose);
  * POST:  VERBOSE == verbose
  */
 
-int getNumAllocations();
-/* returns the number of allocations
+int getNumAllocations();               // used to detect memory leaks, use at beginning and end of functions 
+/* returns the number of allocations   //    and verify the numbers are equal
  * POST: FCTVAL == NUM_ALLOCATIONS
  */
 
