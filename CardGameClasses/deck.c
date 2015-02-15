@@ -7,7 +7,7 @@
 #include "deck.h"
 
 
-int init_deck(Deck *pDeck)
+DWORD init_deck(Deck *pDeck)
 /* initializes the deck to have one of each card
  * PRE:  pDeck is an unallocated pointer to a Deck
  * POST: FCTVAL == ERROR_SUCCESS on success, or an error code otherwise
@@ -16,7 +16,7 @@ int init_deck(Deck *pDeck)
  *       pDeck must be freed by the caller on success
  */
 {
-	// TODO: implement this function
+	// TODO: test this function
                                                                  
 //--------------------------------------------------------------------|
 // Data Dictionary                                                    |
@@ -105,4 +105,115 @@ int init_deck(Deck *pDeck)
 	pDeck = pTempDeck;
 	return iRetVal;
 
+}
+
+DWORD shuffle_deck(Deck *pDeck)
+/* shuffles the deck
+ * PRE:  pDeck is a valid pointer to a Deck
+ * POST: FCTVAL == ERROR_SUCCESS on success, or an error code otherwise
+ *       pDeck->aCards is in a random order
+ */
+{
+   // TODO implement and test this function
+
+   return 0;
+}
+
+Card draw_card(Deck *pDeck, int *errorCode)
+/* removes the 'Top" card [index 0] off the deck and returns it 
+ * PRE:  pDeck is a valid pointer to a Deck and has at least one card in it
+ * POST: errorCode == ERROR_SUCCESS on success, or an error code otherwise
+ *       retVal = the "top" card of the deck
+ *       pDeck->aCards has one less card
+ *       pDeck->iNumCards is decremented by 1
+ */
+{
+   // TODO test this function
+   // TODO improve pre and post to match error conditions
+
+   if ((pDeck == NULL) || (errorCode == NULL))
+   {
+#if VERBOSE >= 1
+      fprintf(stdout, "draw_card(): Error NULL params. Line: %d\n", __LINE__);
+#endif
+      SetLastError(ERROR_INVALID_PARAMETER);
+
+      Card retCard = { 0 };
+      return retCard;
+   }
+
+//--------------------------------------------------------------------|
+// Data Dictionary                                                    |
+//--------------------------------------------------------------------|
+
+#if VERBOSE > 1
+	fprintf(stdout, "draw_card(): Data Dictionary. Line: %d\n", __LINE__);
+#endif
+
+   Card retCard   = { 0 };             // Card to return
+   Deck tempDeck  = { 0 };             // there is prolly a better way of doing this
+   DWORD dwItr    = 0;                 // iterator for copy
+
+   *errorCode     = ERROR_SUCCESS;     // let's be optimistic, WOOO
+
+//--------------------------------------------------------------------|
+// Pop the top card                                                   |
+//--------------------------------------------------------------------|
+
+#if VERBOSE > 1
+	fprintf(stdout, "draw_card(): Pop the top card. Line: %d\n", __LINE__);
+#endif
+
+   if (pDeck->aCards == NULL)
+   {
+#if VERBOSE >= 1
+      fprintf(stdout, "draw_card(): Error NULL params. Line: %d\n", __LINE__);
+#endif
+
+      *errorCode = ERROR_INVALID_PARAMETER;
+      return retCard;
+   }
+
+   retCard.cSuit = pDeck->aCards[0].cSuit;      // retCard is the top card
+   retCard.cValue = pDeck->aCards[0].cValue;
+
+//--------------------------------------------------------------------|
+// Update the deck                                                    |
+//--------------------------------------------------------------------|
+
+#if VERBOSE > 1
+	fprintf(stdout, "draw_card(): Update the deck . Line: %d\n", __LINE__);
+#endif
+
+   tempDeck.iNumCards = pDeck->iNumCards - 1;
+
+   if ((tempDeck.aCards = (Card *)w_malloc(sizeof(Card)* tempDeck.iNumCards)) == NULL)
+   {
+      *errorCode = GetLastError();
+
+#if VERBOSE >= 1
+      fprintf(stdout, "draw_card(): Error %d allocating deck. Line: %d\n", 
+         *errorCode, __LINE__);
+#endif
+
+      return retCard;
+   }
+
+   // copying each card to a new deck
+   for (dwItr = 0; dwItr < tempDeck.iNumCards; dwItr++)
+   {
+      tempDeck.aCards[dwItr].cSuit = pDeck->aCards[dwItr + 1].cSuit;
+      tempDeck.aCards[dwItr].cValue = pDeck->aCards[dwItr + 1].cValue;
+   }
+
+   w_free(pDeck->aCards);                    // free the old deck
+
+   pDeck->aCards = tempDeck.aCards;          // update the deck
+   pDeck->iNumCards = tempDeck.iNumCards;
+
+#if VERBOSE > 1
+   fprintf(stdout, "draw_card(): Drew card succesfully. Line: %d\n", __LINE__);
+#endif
+
+   return retCard;
 }

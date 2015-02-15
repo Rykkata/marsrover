@@ -66,10 +66,10 @@ typedef struct
 typedef struct
 {
    Card *aCards;			// ann array of cards in the deck
-   int iNumCards;			// number of cards currently in the deck
+   DWORD iNumCards;	   // number of cards currently in the deck
 }Deck;
 
-int init_deck(Deck *pDeck);
+DWORD init_deck(Deck *pDeck);
 /* initializes the deck to have one of each card 
  * PRE:  pDeck is a  valid pointer to a Deck
  * POST: FCTVAL == ERROR_SUCCESS on success, or an error code otherwise
@@ -77,17 +77,18 @@ int init_deck(Deck *pDeck);
  *       pDeck->iNumCards = DECK_SIZE
  */
 
-int shuffle_deck(Deck *pDeck);
+DWORD shuffle_deck(Deck *pDeck);
 /* shuffles the deck
  * PRE:  pDeck is a valid pointer to a Deck
  * POST: FCTVAL == ERROR_SUCCESS on success, or an error code otherwise
  *       pDeck->aCards is in a random order
  */
 
-Card draw_card(Deck *pDeck);
+Card draw_card(Deck *pDeck, int *errorCode);
 /* removes the 'Top" card [index 0] off the deck and returns it 
  * PRE:  pDeck is a valid pointer to a Deck and has at least one card in it
- * POST: FCTVAL == ERROR_SUCCESS on success, or an error code otherwise
+ * POST: errorCode == ERROR_SUCCESS on success, or an error code otherwise
+ *       retVal = the "top" card of the deck
  *       pDeck->aCards has one less card
  *       pDeck->iNumCards is decremented by 1
  */
