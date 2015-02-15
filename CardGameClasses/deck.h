@@ -93,4 +93,10 @@ Card draw_card(Deck *pDeck, int *errorCode);
  *       pDeck->iNumCards is decremented by 1
  */
 
+Hand_Type getHandType(Hand curHand);         // Designed for 5 card hand types of games                       
+/* calculates the current type of the hand
+ * PRE:  curHand is an intialized hand with HAND_SIZE number of cards
+ * POST: FCTVAL == the highest value Hand_Type in the curHand  
+ */
+
 #endif
