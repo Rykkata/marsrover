@@ -9,13 +9,12 @@
 #include <Windows.h>
 #include <stdio.h>
 
-DWORD VERBOSE        = 0;               // controlls debug prints, 0 for none, 1 for errors, > 1 for a lot
-int NUM_ALLOCATIONS  = 0;              // keeps track of the number of allocations to avoid memory leaks
+#define  VERBOSE 2                  // controlls debug prints, 0 for none, 1 for errors, > 1 for a lot
+int NUM_ALLOCATIONS;                // keeps track of the number of allocations to avoid memory leaks
 
-void setVerbose(DWORD verbose);
-/* sets the verbose output
- * PRE:  verbose >= 0
- * POST:  VERBOSE == verbose
+void initNumAllocations();                // use at beginning of main
+/* sets the number of allocations to 0    
+ * POST: NUM_ALLOCATIONS == 0
  */
 
 int getNumAllocations();               // used to detect memory leaks, use at beginning and end of functions 

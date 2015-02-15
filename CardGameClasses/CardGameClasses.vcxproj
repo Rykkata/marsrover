@@ -40,6 +40,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <TargetExt>.lib</TargetExt>
+    <IncludePath>D:\Visual_Studios_Projects\MarsRover\marsrover\MarsRover;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -67,9 +68,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\MarsRover\allocation.h" />
+    <ClInclude Include="deck.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\MarsRover\allocation.c" />
+    <ClCompile Include="deck.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

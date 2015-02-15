@@ -6,13 +6,13 @@
 
 #include "allocation.h"
 
-void setVerbose(DWORD verbose)
-/* sets the verbose output
- * PRE:  verbose >= 0
- * POST:  VERBOSE == verbose
+void initNumAllocations()
+/* sets the number of allocations to 0
+ * POST: NUM_ALLOCATIONS == 0
+ *
  */
 {
-   VERBOSE = verbose;
+   NUM_ALLOCATIONS = 0;
 }
 
 int getNumAllocations()
