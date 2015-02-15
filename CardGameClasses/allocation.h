@@ -9,7 +9,16 @@
 #include <Windows.h>
 #include <stdio.h>
 
+#ifdef _DEBUG
 #define  VERBOSE 2                  // controlls debug prints, 0 for none, 1 for errors, > 1 for a lot
+#else
+#ifdef _RELEASELOGGING
+#define  VERBOSE 1                  // controlls debug prints, 0 for none, 1 for errors, > 1 for a lot
+#else
+#define  VERBOSE 0                  // controlls debug prints, 0 for none, 1 for errors, > 1 for a lot
+#endif
+#endif
+
 int NUM_ALLOCATIONS;                // keeps track of the number of allocations to avoid memory leaks
 
 void initNumAllocations();                // use at beginning of main
