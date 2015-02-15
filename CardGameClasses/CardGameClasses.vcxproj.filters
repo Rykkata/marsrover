@@ -15,18 +15,18 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\MarsRover\allocation.h">
+    <ClInclude Include="deck.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="deck.h">
+    <ClInclude Include="allocation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\MarsRover\allocation.c">
+    <ClCompile Include="deck.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="deck.c">
+    <ClCompile Include="allocation.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
