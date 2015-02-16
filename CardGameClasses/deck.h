@@ -31,7 +31,7 @@ typedef enum
    Three,
    Four,
    Five,
-   Siz,
+   Six,
    Seven,
    Eight,
    Nine,
