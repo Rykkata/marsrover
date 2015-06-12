@@ -12,7 +12,7 @@ DWORD init_deck(Deck *pDeck)
  * PRE:  pDeck is an unallocated pointer to a Deck
  * POST: FCTVAL == ERROR_SUCCESS on success, or an error code otherwise
  *       pDeck has one of each card and mimics a standard deck
- *       pDeck->iNumCards = DECK_SIZE
+ *       pDeck->dwNumCards = DECK_SIZE
  *       pDeck must be freed by the caller on success
  */
 {
@@ -78,7 +78,7 @@ DWORD init_deck(Deck *pDeck)
 		}
 	}
 
-	pTempDeck->iNumCards = dwTotalCards;
+	pTempDeck->dwNumCards = dwTotalCards;
 
 	if (dwTotalCards != DECK_SIZE)
 	{
@@ -114,6 +114,18 @@ DWORD shuffle_deck(Deck *pDeck)
  *       pDeck->aCards is in a random order
  */
 {
+//--------------------------------------------------------------------|
+// Data Dictionary                                                    |
+//--------------------------------------------------------------------|
+
+   Deck tempDeck = { 0 };
+
+//--------------------------------------------------------------------|
+// Allocate pointers                                                |
+//--------------------------------------------------------------------|
+   
+   // this would be so much easier in Python...
+
    // TODO implement and test this function
 
    return 0;
@@ -125,7 +137,7 @@ Card draw_card(Deck *pDeck, int *errorCode)
  * POST: errorCode == ERROR_SUCCESS on success, or an error code otherwise
  *       retVal = the "top" card of the deck
  *       pDeck->aCards has one less card
- *       pDeck->iNumCards is decremented by 1
+ *       pDeck->dwNumCards is decremented by 1
  */
 {
    // TODO test this function
@@ -185,9 +197,9 @@ Card draw_card(Deck *pDeck, int *errorCode)
 	fprintf(stdout, "draw_card(): Update the deck . Line: %d\n", __LINE__);
 #endif
 
-   tempDeck.iNumCards = pDeck->iNumCards - 1;
+   tempDeck.dwNumCards = pDeck->dwNumCards - 1;
 
-   if ((tempDeck.aCards = (Card *)w_malloc(sizeof(Card)* tempDeck.iNumCards)) == NULL)
+   if ((tempDeck.aCards = (Card *)w_malloc(sizeof(Card)* tempDeck.dwNumCards)) == NULL)
    {
       *errorCode = GetLastError();
 
@@ -200,7 +212,7 @@ Card draw_card(Deck *pDeck, int *errorCode)
    }
 
    // copying each card to a new deck
-   for (dwItr = 0; dwItr < tempDeck.iNumCards; dwItr++)
+   for (dwItr = 0; dwItr < tempDeck.dwNumCards; dwItr++)
    {
       tempDeck.aCards[dwItr].cSuit = pDeck->aCards[dwItr + 1].cSuit;
       tempDeck.aCards[dwItr].cValue = pDeck->aCards[dwItr + 1].cValue;
@@ -209,7 +221,7 @@ Card draw_card(Deck *pDeck, int *errorCode)
    w_free(pDeck->aCards);                    // free the old deck
 
    pDeck->aCards = tempDeck.aCards;          // update the deck
-   pDeck->iNumCards = tempDeck.iNumCards;
+   pDeck->dwNumCards = tempDeck.dwNumCards;
 
 #if VERBOSE > 1
    fprintf(stdout, "draw_card(): Drew card succesfully. Line: %d\n", __LINE__);

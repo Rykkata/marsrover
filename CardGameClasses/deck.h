@@ -6,6 +6,8 @@
  * written by Kristopher Wagner
  */
 
+#include <stdlib.h>
+#include <time.h>
 #include "allocation.h"
 
 #define HAND_SIZE 5
@@ -65,8 +67,8 @@ typedef struct
 
 typedef struct
 {
-   Card *aCards;			// ann array of cards in the deck
-   DWORD iNumCards;	   // number of cards currently in the deck
+   Card *aCards;			// an array of cards in the deck
+   DWORD dwNumCards;	   // number of cards currently in the deck
 }Deck;
 
 DWORD init_deck(Deck *pDeck);
@@ -74,7 +76,7 @@ DWORD init_deck(Deck *pDeck);
  * PRE:  pDeck is a  valid pointer to a Deck
  * POST: FCTVAL == ERROR_SUCCESS on success, or an error code otherwise
  *       pDeck has one of each card and mimics a standard deck
- *       pDeck->iNumCards = DECK_SIZE
+ *       pDeck->dwNumCards = DECK_SIZE
  */
 
 DWORD shuffle_deck(Deck *pDeck);
@@ -90,7 +92,7 @@ Card draw_card(Deck *pDeck, int *errorCode);
  * POST: errorCode == ERROR_SUCCESS on success, or an error code otherwise
  *       retVal = the "top" card of the deck
  *       pDeck->aCards has one less card
- *       pDeck->iNumCards is decremented by 1
+ *       pDeck->dwNumCards is decremented by 1
  */
 
 Hand_Type getHandType(Hand curHand);         // Designed for 5 card hand types of games                       
