@@ -6,24 +6,6 @@
 
 #include "allocation.h"
 
-void initNumAllocations()
-/* sets the number of allocations to 0
- * POST: NUM_ALLOCATIONS == 0
- *
- */
-{
-   NUM_ALLOCATIONS = 0;
-}
-
-int getNumAllocations()
-/* returns the number of allocations
- * POST: FCTVAL == NUM_ALLOCATIONS
- */
-{
-   return NUM_ALLOCATIONS;
-}
-
-
 LPVOID w_malloc(DWORD dwSize)
 /* allocates size bytes and returns a pointer to it
  * PRE:   size is > 0
@@ -68,12 +50,12 @@ LPVOID w_malloc(DWORD dwSize)
    }
    else
    {
-      NUM_ALLOCATIONS++;
+      ZeroMemory(lpRetVal, dwSize);
 
       if (VERBOSE > 1)
       {
-         fprintf(stdout, "w_malloc: Allocated %d bytes.\nw_malloc: Total allocations: %d.\nw_malloc: Line: %d\n",
-            dwSize, NUM_ALLOCATIONS, __LINE__);
+         fprintf(stdout, "w_malloc: Allocated %d bytes. Line: %d\n",
+            dwSize, __LINE__);
       }
 
       return lpRetVal;
@@ -93,7 +75,7 @@ DWORD w_free(LPVOID pMem)
    {
       dwRetVal = ERROR_INVALID_PARAMETER;
 
-      if (VERBOSE > +1)
+      if (VERBOSE > 1)
       {
          fprintf(stderr, "w_free: Error %d, pMem already freed. Line: %d\n", dwRetVal, __LINE__);
       }
@@ -107,12 +89,10 @@ DWORD w_free(LPVOID pMem)
    }
 
    free(pMem);
-   NUM_ALLOCATIONS--;
 
    if (VERBOSE > 1)
    {
-      fprintf(stdout, "w_free: Freed pMem.\nw_free: Total allocations: %d\nw_free: Line: %d\n",
-         NUM_ALLOCATIONS, __LINE__);
+      fprintf(stdout, "w_free: Freed pMem. Line: %d\n", __LINE__);
    }
 
    return dwRetVal;

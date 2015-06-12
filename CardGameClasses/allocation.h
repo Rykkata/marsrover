@@ -19,19 +19,6 @@
 #endif
 #endif
 
-int NUM_ALLOCATIONS;                // keeps track of the number of allocations to avoid memory leaks
-
-void initNumAllocations();                // use at beginning of main
-/* sets the number of allocations to 0    
- * POST: NUM_ALLOCATIONS == 0
- */
-
-int getNumAllocations();               // used to detect memory leaks, use at beginning and end of functions 
-/* returns the number of allocations   //    and verify the numbers are equal
- * POST: FCTVAL == NUM_ALLOCATIONS
- */
-
-
 LPVOID w_malloc(DWORD dwSize);
 /* allocates size bytes and returns a pointer to it
  * PRE:   size is > 0

@@ -41,7 +41,7 @@ DWORD init_deck(Deck *pDeck)
 	fprintf(stdout, "init_deck(): Allocating pointers. Line: %d\n", __LINE__);
 #endif
 
-	if ((pTempDeck = (Deck *)malloc(sizeof(Deck))) == NULL)
+   if ((pTempDeck = (Deck *)w_malloc(sizeof(Deck))) == NULL)
 	{
 		iRetVal = GetLastError();
 #if VERBOSE >= 1
@@ -50,7 +50,7 @@ DWORD init_deck(Deck *pDeck)
 		return iRetVal;
 	}
 
-	if ((pTempDeck->aCards = (Card *)malloc(sizeof(Card)* DECK_SIZE)) == NULL)
+   if ((pTempDeck->aCards = (Card *)w_malloc(sizeof(Card)* DECK_SIZE)) == NULL)
 	{
 		iRetVal = GetLastError();
 #if VERBOSE >= 1

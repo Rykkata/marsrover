@@ -10,7 +10,6 @@
 #include <time.h>
 #include "allocation.h"
 
-#define HAND_SIZE 5
 #define DECK_SIZE 52
 
 typedef enum
@@ -62,7 +61,8 @@ typedef struct
 
 typedef struct
 {
-   Card aCards[HAND_SIZE];		// Array of HAND_SIZE cards to represent a hand of cards
+   DWORD dwNumCards;    // number of cards in the deck
+   Card *aCards;		   // Array of HAND_SIZE cards to represent a hand of cards
 }Hand;
 
 typedef struct
