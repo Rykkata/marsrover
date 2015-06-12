@@ -62,7 +62,7 @@ typedef struct
 typedef struct
 {
    DWORD dwNumCards;    // number of cards in the deck
-   Card *aCards;		   // Array of HAND_SIZE cards to represent a hand of cards
+   Card *aCards;		   // Array of dwNumCards cards to represent a hand of cards
 }Hand;
 
 typedef struct
