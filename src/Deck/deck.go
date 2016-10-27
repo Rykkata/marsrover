@@ -31,3 +31,11 @@ func (d *Deck) Shuffle() {
 		d.Cards[i], d.Cards[j] = d.Cards[j], d.Cards[i]
 	}
 }
+
+// DrawCard removes the 'Top' card [index of 0] off the deck and returns it
+func (d *Deck) DrawCard() card.Card {
+	retVal := d.Cards[0]
+	d.Cards = d.Cards[1:]
+
+	return retVal
+}

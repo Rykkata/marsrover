@@ -7,4 +7,5 @@ func main() {
 
 	sampleDeck.GetNewDeck()
 	sampleDeck.Shuffle()
+	sampleDeck.DrawCard()
 }
