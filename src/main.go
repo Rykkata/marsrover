@@ -1,8 +1,10 @@
 package main
 
-func main() {
-	sampleDeck := Deck{}
+import (deck "github.com/arcite/marsrover/src/Deck")
 
-	sampleDeck.get_new_deck()
-	sampleDeck.shuffle()
+func main() {
+	sampleDeck := deck.Deck{}
+
+	sampleDeck.GetNewDeck()
+	sampleDeck.Shuffle()
 }

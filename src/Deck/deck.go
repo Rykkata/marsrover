@@ -1,66 +1,33 @@
 package deck
 
-import "math/rand"
-
-// Suit represents the suits of a card to improve readability
-type Suit int
-
-// The list of all suits
-const (
-	Heart Suit = iota
-	Diamond
-	Spade
-	Club
+import (
+	"math/rand"
+	"github.com/arcite/marsrover/src/Card"
 )
-
-// Value represents the value of the card to improve readability
-type Value int
-
-// The list of all values
-const (
-	Two Value = iota
-	Three
-	Four
-	Five
-	Six
-	Seven
-	Eight
-	Nine
-	Ten
-	Jack
-	Queen
-	King
-	Ace
-)
-
-// Card represents a card in a deck
-type Card struct {
-	s Suit
-	v Value
-}
 
 // Deck represents a standard 52 card deck
 type Deck struct {
-	cards []Card
+	Cards []card.Card
 }
 
-// replaces d.cards with a fresh set
-func (d *Deck) getNewDeck() {
-	d.cards = make([]Card, 52, 52)
+// GetNewDeck replaces d.cards with a fresh set
+func (d *Deck) GetNewDeck() {
+	d.Cards = make([]card.Card, 52, 52)
 	i := 0
 
-	for s := Heart; s < Club; s++ {
-		for v := Two; v < Ace; v++ {
-			d.cards[i] = Card{s: s, v: v}
+	for s := card.Heart; s < card.Club; s++ {
+		for v := card.Two; v < card.Ace; v++ {
+			d.Cards[i] = card.Card{S: s,V: v}
 			i++
 		}
 	}
 }
 
-func (d *Deck) shuffle() {
+// Shuffle randomizes the order of the cards
+func (d *Deck) Shuffle() {
 	// http://stackoverflow.com/questions/12264789/shuffle-array-in-go
-	for i := range d.cards {
+	for i := range d.Cards {
 		j := rand.Intn(i + 1)
-		d.cards[i], d.cards[j] = d.cards[j], d.cards[i]
+		d.Cards[i], d.Cards[j] = d.Cards[j], d.Cards[i]
 	}
 }
